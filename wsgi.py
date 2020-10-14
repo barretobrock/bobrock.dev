@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from configurations import ProductionConfig
+# Internal packages
+from routes import create_app
 
-app = Flask(__name__,)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+if __name__ == "__main__":
+    app = create_app(config_class=ProductionConfig)
+    app.run()
