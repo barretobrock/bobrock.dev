@@ -20,7 +20,7 @@ def blog() -> str:
 def post(post_id: float):
     """Loads specific blog post by ID"""
     post = Posts.query.get_or_404(post_id)
-    return render_template('blog.html', title=post.title, post=post)
+    return render_template('post.html', title=post.title, post=post)
 
 
 @posts.route("/blog/new", methods=('GET', 'POST'))

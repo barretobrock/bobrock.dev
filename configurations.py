@@ -1,4 +1,11 @@
 import os
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
+
+def get_local_secret(path: str) -> str:
+    """Grabs a locally-stored secret for debugging"""
+    with open(path) as f:
+        return f.read().strip()
 
 
 class Config(object):
@@ -8,9 +15,9 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///./database.db'
-    SECRET_KEY = os.environ['BOBDEV_SECRET_KEY']
-    REGISTER_KEY = os.environ['REGISTRATION_KEY']
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.path.join(base_dir, "database.db")}'
+    SECRET_KEY = os.environ.get('BOBDEV_SECRET_KEY')
+    REGISTER_KEY = os.environ.get('REGISTRATION_KEY')
 
 
 class BaseConfig(Config):
@@ -35,3 +42,5 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     TESTING = True
     TEMPLATES_AUTO_RELOAD = True
+    SECRET_KEY = get_local_secret(os.path.join(base_dir, *['secrets', 'bobdev_secret']))
+    REGISTER_KEY = get_local_secret(os.path.join(base_dir, *['secrets', 'register']))
