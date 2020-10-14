@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_babel import _
 # Internal packages
 from flask_base import db, bcrypt
 from models import User, Posts
@@ -18,9 +19,9 @@ def register():
         user = User(username=form.username.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
+        flash(_('Your account has been created! You are now able to log in'), 'alert-success')
         return redirect(url_for('users.login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title=_('Register'), form=form)
 
 
 @users.route("/login", methods=('GET', 'POST'))
@@ -35,8 +36,8 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
-            flash('Login Unsuccessful. Please check username and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+            flash(_('Login Unsuccessful. Please check username and password'), 'alert-danger')
+    return render_template('login.html', title=_('Login'), form=form)
 
 
 @users.route("/logout")
@@ -52,11 +53,11 @@ def account():
     if form.validate_on_submit():
         current_user.username = form.username.data
         db.session.commit()
-        flash('Your account has been updated!', 'success')
+        flash(_('Your account has been updated!'), 'alert-success')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
-    return render_template('account.html', title='Account', form=form)
+    return render_template('account.html', title=_('Account'), form=form)
 
 
 @users.route("/user/<string:username>")
@@ -75,13 +76,13 @@ def reset_token(token):
         return redirect(url_for('main.index'))
     user = User.verify_reset_token(token)
     if user is None:
-        flash('That is an invalid or expired token', 'warning')
+        flash(_('That is an invalid or expired token'), 'alert-warning')
         return redirect(url_for('users.reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_password
         db.session.commit()
-        flash('Your password has been updated! You are now able to log in', 'success')
+        flash(_('Your password has been updated! You are now able to log in'), 'alert-success')
         return redirect(url_for('users.login'))
-    return render_template('reset_token.html', title='Reset Password', form=form)
+    return render_template('reset_token.html', title=_('Reset Password'), form=form)

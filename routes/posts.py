@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
 from flask_login import current_user, login_required
+from flask_babel import _
 # Internal packages
 from flask_base import db
 from models import Posts
@@ -13,7 +14,7 @@ def blog() -> str:
     """Main blog"""
     page = request.args.get('page', 1, type=int)
     posts = Posts.query.order_by(Posts.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('blog.html', posts=posts, title='Blog')
+    return render_template('blog.html', posts=posts, title=_('Blog'))
 
 
 @posts.route("/blog/<int:post_id>")
@@ -28,12 +29,12 @@ def post(post_id: float):
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Posts(title=form.title.data, content=form.content.data, author=current_user)
+        post = Posts(lang=form.lang.data, title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post has been created!', 'success')
-        return redirect(url_for('main.home'))
-    return render_template('create_post.html', title='New Post', form=form, legend='New Post')
+        flash(_('Your post has been created!'), 'alert-success')
+        return redirect(url_for('posts.post', post_id=post.id))
+    return render_template('create_post.html', title=_('New Post'), form=form, legend='New Post')
 
 
 @posts.route("/blog/<int:post_id>/update", methods=('GET', 'POST'))
@@ -47,12 +48,12 @@ def update_post(post_id: float):
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
-        flash('Your post has been updated!', 'success')
+        flash(_('Your post has been updated!'), 'alert-success')
         return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
+    return render_template('create_post.html', title=_('Update Post'), form=form, legend=_('Update Post'))
 
 
 @posts.route("/blog/<int:post_id>/delete", methods=('POST',))
@@ -63,5 +64,5 @@ def delete_post(post_id: float) -> str:
         abort(403)
     db.session.delete(post)
     db.session.commit()
-    flash('Your post has been deleted!', 'success')
-    return redirect(url_for('routes.main'))
+    flash(_('Your post has been deleted!'), 'alert-success')
+    return redirect(url_for('posts.blog'))

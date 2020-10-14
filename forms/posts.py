@@ -1,9 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from flask_babel import lazy_gettext as _l
+from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired
+# Internal packages
+from flask import current_app
 
 
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Post')
+    lang = SelectField(_l('Language'), validators=[DataRequired()], choices=['en', 'et'])
+    title = StringField(_l('Title'), validators=[DataRequired()])
+    content = TextAreaField(_l('Content'), validators=[DataRequired()])
+    submit = SubmitField(_l('Post'))
