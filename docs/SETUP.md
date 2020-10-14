@@ -2,7 +2,7 @@
 
 ## Sources
  - Droplet, Nginx, Gunicorn, Flask (general) setup: [here](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-20-04)
- - 
+ - Flask layout & structure deep-dive + database building: [here](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
 
 ## More Info
  - [nginx block selection algorithms](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms)
@@ -207,3 +207,12 @@ Remove redundant HTTP profile
 sudo ufw delete allow 'Nginx HTTP'
 ```
 The domain should now load properly when you go to `https://bobrock.dev`
+## Step 7: Post setup
+Environment variables - store in profile.d:
+
+`sudo nano /etc/profile.d/bobdev.sh`
+```bash
+#!/bin/bash
+export BOBDEV_SECRET_KEY=something
+export REGISTRATION_KEY=something
+```

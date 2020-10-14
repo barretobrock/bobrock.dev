@@ -4,27 +4,56 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{{ url_for('static', filename= 'images/favicon.ico') }}" type="image/x-icon">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/main.css') }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>{% block title %} {% endblock %}</title>
+    <!-- JS -->
+    <!-- FontAwesome -->
+    <script src="https://use.fontawesome.com/9b3bd4052a.js"></script>
+    {% if title %}
+        <title>bobrock.dev - {{ title }}</title>
+    {% else %}
+        <title>bobrock.dev</title>
+    {% endif %}
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('index')}}">FlaskBlog</a>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">bobrock.dev</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">About</a>
-            </li>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('main.about')}}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('main.cv')}}">CV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('posts.blog')}}">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('main.projects')}}">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('main.contact')}}">Contact</a>
+                </li>
+                    <!-- Navbar Right Side -->
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link" href="{{url_for('users.login')}}">Login</a>
+                  <a class="nav-item nav-link" href="{{url_for('users.register')}}">Register</a>
+                </div>
             </ul>
         </div>
     </nav>
     <div class="container">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
         {% block content %} {% endblock %}
     </div>
 
