@@ -3,6 +3,7 @@
 ## Sources
  - Droplet, Nginx, Gunicorn, Flask (general) setup: [here](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-20-04)
  - Flask layout & structure deep-dive + database building: [here](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
+ - React & Webpack integration into Flask: [here](https://dev.to/icewreck/react-flask-integration-part-1-setup-with-webpack-djo)
 
 ## More Info
  - [nginx block selection algorithms](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms)
@@ -207,7 +208,35 @@ Remove redundant HTTP profile
 sudo ufw delete allow 'Nginx HTTP'
 ```
 The domain should now load properly when you go to `https://bobrock.dev`
-## Step 7: Post setup
+## Step 7: React
+Install yarn, init the project
+```bash
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+yarn init -y
+```
+Install React, webpack & loaders
+```bash
+yarn add react react-dom
+yarn add -D webpack webpack-cli webpack-dev-server
+yarn add -D @babel/core @babel/preset-env @babel/preset-react babel-loader file-loader
+yarn add -D style-loader css-loader
+```
+Create webpack.config & babel.config files (saved on repo), then run webpack
+```bash
+yarn webpack --mode development
+NOTE: to run while developing, run the folowing instead
+yarn webpack --mode development --watch
+```
+Once that runs successfully, we can start using the Makefile instead:
+```bash
+# Start development
+make start-dev
+# Production
+make prod-build
+```
+## Step 8: Post setup
 Environment variables - store in profile.d:
 
 `sudo nano /etc/profile.d/bobdev.sh`

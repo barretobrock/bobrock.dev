@@ -2,8 +2,6 @@ from flask_wtf import FlaskForm
 from flask_babel import lazy_gettext as LBBL
 from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired
-# Internal packages
-from flask import current_app
 
 
 class PostForm(FlaskForm):
