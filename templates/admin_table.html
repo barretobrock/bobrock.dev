@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+  <table>
+    {% for row in results.items %}
+      {% if loop.index == 1 %}
+        <thead>
+          <tr>
+            {% for col in row.__table__.columns.keys() %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+      {% endif %}
+      {% include '_row.html' %}
+    {% endfor %}
+  </table>
+{% endblock content %}

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% for tbl in tables %}
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('admin.render_table', tbl_name=tbl) }}">{{tbl}}</a>
+  {% endfor %}
+{% endblock content %}

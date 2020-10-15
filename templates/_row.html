@@ -1,0 +1,5 @@
+<tr>
+    {% for col in row.__table__.columns.keys() %}
+    <td>{{ row.__dict__.get(col) }}</td>
+    {% endfor %}
+</tr>

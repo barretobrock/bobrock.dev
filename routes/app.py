@@ -2,6 +2,7 @@ from flask import Flask, request, g
 # Internal packages
 from configurations import BaseConfig
 from flask_base import db, bcrypt, log_mgr, babel
+from .admin import admin
 from .errors import errors
 from .main import main
 from .posts import posts
@@ -19,7 +20,7 @@ def create_app(config_class=BaseConfig) -> Flask:
     log_mgr.init_app(app)
     babel.init_app(app)
     # Register routes
-    for rt in [main, users, posts, errors]:
+    for rt in [admin, main, users, posts, errors]:
         app.register_blueprint(rt)
 
     @babel.localeselector
