@@ -1,9 +1,18 @@
+from dataclasses import dataclass
 from datetime import datetime
 # Internal packages
 from flask_base import db
 
 
+@dataclass
 class Posts(db.Model):
+    id: int
+    lang: str
+    title: str
+    date_posted: datetime
+    content: str
+    user_id: int
+
     id = db.Column(db.Integer, primary_key=True)
     lang = db.Column(db.String(2), nullable=False)
     title = db.Column(db.String(100), nullable=False)

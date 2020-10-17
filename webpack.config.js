@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        main: "./static/js/test.js",
+        main: "./static/js/index.js",
     },
     module: {
         rules: [
@@ -27,4 +27,12 @@ module.exports = {
         path: __dirname + "/static/dist",
         filename: "[name].bundle.js",
     },
+    resolve: {
+        fallback: {
+            "util": false,
+            "path": false,
+            "assert": false,
+            "crypto": false
+        }
+    }
 };
