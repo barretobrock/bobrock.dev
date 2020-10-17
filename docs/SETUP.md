@@ -4,7 +4,9 @@
  - Droplet, Nginx, Gunicorn, Flask (general) setup: [here](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-20-04)
  - Flask layout & structure deep-dive + database building: [here](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
  - React & Webpack integration into Flask: [here](https://dev.to/icewreck/react-flask-integration-part-1-setup-with-webpack-djo)
-
+ - [Yarn v. npm commands comparison](https://classic.yarnpkg.com/en/docs/migrating-from-npm/#toc-cli-commands-comparison) (this was my first time using yarn)
+ - [SQLite querying from React](https://www.sqlitetutorial.net/sqlite-nodejs/connect/)
+ - [Redux stuff](https://www.valentinog.com/blog/redux/)
 ## More Info
  - [nginx block selection algorithms](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms)
 

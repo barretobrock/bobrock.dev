@@ -3,6 +3,7 @@ from flask import Flask, request, g
 from configurations import BaseConfig
 from flask_base import db, bcrypt, log_mgr, babel
 from .admin import admin
+from .api import api
 from .errors import errors
 from .main import main
 from .posts import posts
@@ -20,7 +21,7 @@ def create_app(config_class=BaseConfig) -> Flask:
     log_mgr.init_app(app)
     babel.init_app(app)
     # Register routes
-    for rt in [admin, main, users, posts, errors]:
+    for rt in [admin, api, main, users, posts, errors]:
         app.register_blueprint(rt)
 
     @babel.localeselector
