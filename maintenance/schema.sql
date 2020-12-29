@@ -16,7 +16,7 @@ CREATE TABLE posts
 		REFERENCES users
 );
 
--- Access accounts
+-- Accounts
 CREATE TABLE users
 (
 	id INTEGER

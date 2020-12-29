@@ -1,11 +1,14 @@
 """Initializes the database. Should really only be run once or to refresh"""
 import sqlite3
+from getpass import getpass, getuser
 from flask_base import bcrypt
 
-connection = sqlite3.connect('database.db')
+connection = sqlite3.connect('../database.db')
 
+admin_un = getuser()
+admin_pw = getpass()
 
-with open('maintenance/schema.sql') as f:
+with open('schema.sql') as f:
     connection.executescript(f.read())
 
 cur = connection.cursor()
@@ -13,8 +16,7 @@ cur = connection.cursor()
 cur.executemany(
     "INSERT INTO user (username, password) VALUES (?, ?)",
     (
-        ('admin0', bcrypt.generate_password_hash('hunter2').decode('utf-8')),
-        ('user1',  bcrypt.generate_password_hash('password0').decode('utf-8'))
+        (admin_un, bcrypt.generate_password_hash(admin_pw).decode('utf-8')),
     )
 )
 
