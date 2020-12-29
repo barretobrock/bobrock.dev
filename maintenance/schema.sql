@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS users;
 
 
+-- Blog posts
 CREATE TABLE posts
 (
 	id INTEGER
@@ -12,11 +13,11 @@ CREATE TABLE posts
 	date_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	content TEXT NOT NULL,
 	user_id INTEGER NOT NULL
-		REFERENCES user
+		REFERENCES users
 );
 
-
-CREATE TABLE user
+-- Access accounts
+CREATE TABLE users
 (
 	id INTEGER
 		CONSTRAINT user_pk

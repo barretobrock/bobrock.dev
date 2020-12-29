@@ -1,7 +1,7 @@
 from flask import Flask, request, g
 # Internal packages
 from configurations import BaseConfig
-from flask_base import db, bcrypt, log_mgr, babel
+from flask_base import db, bcrypt, log_mgr
 from .admin import admin
 from .api import api
 from .errors import errors
@@ -19,14 +19,8 @@ def create_app(config_class=BaseConfig) -> Flask:
     db.init_app(app)
     bcrypt.init_app(app)
     log_mgr.init_app(app)
-    babel.init_app(app)
     # Register routes
     for rt in [admin, api, main, users, posts, errors]:
         app.register_blueprint(rt)
 
-    @babel.localeselector
-    def get_locale():
-        if not g.get('lang_code', None):
-            g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
-        return g.lang_code
     return app

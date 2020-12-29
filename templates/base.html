@@ -4,12 +4,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="{{ url_for('static', filename= 'images/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/main.css') }}">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <!-- JS -->
     <!-- FontAwesome -->
     <script src="https://use.fontawesome.com/9b3bd4052a.js"></script>
@@ -20,16 +19,16 @@
     {% endif %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('main.index') }}">bobrock.dev</a>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">
+            <img class="nav-logo" src="{{ url_for('static', filename='images/favicon.png') }}" alt="20-sided die logo">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 {% set nav_dict = [
-                    ('main.about', 'About'),
-                    ('main.cv', 'CV'),
                     ('posts.blog', 'Blog'),
                     ('main.projects', 'Projects'),
                     ('main.contact', 'Contact')
@@ -37,7 +36,7 @@
 
                 {% for id, caption in nav_dict %}
                     <li class="nav-item {{'active' if request.endpoint == id}}">
-                        <a class="nav-link" href="{{url_for(id)}}">{{ _(caption) }}</a>
+                        <a class="nav-link" href="{{ url_for(id) }}">{{ caption }}</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -45,14 +44,13 @@
             <div class="navbar-nav">
                 {% if current_user.is_authenticated %}
                     {% if request.endpoint in ['posts.blog', 'posts.post'] %}
-                        <a class="nav-item nav-link" href="{{url_for('posts.new_post')}}">{{ _('New Post') }}</a>
+                        <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
                     {% endif %}
-                    <a class="nav-item nav-link" href="{{url_for('admin.tables')}}">{{ _('Admin') }}</a>
-                    <a class="nav-item nav-link" href="{{url_for('users.account')}}">{{ _('Account') }}</a>
-                    <a class="nav-item nav-link" href="{{url_for('users.logout')}}">{{ _('Log Out') }}</a>
+                    <a class="nav-item nav-link" href="{{ url_for('admin.tables') }}">Admin</a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Log Out</a>
                 {% else %}
-                    <a class="nav-item nav-link" href="{{url_for('users.login')}}">{{ _('Login') }}</a>
-                    <a class="nav-item nav-link" href="{{url_for('users.register')}}">{{ _('Register') }}</a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
                 {% endif %}
             </div>
         </div>
@@ -70,8 +68,6 @@
     <div id="content">
 
     </div>
-    <!-- React script -->
-    <script src="{{ url_for('static', filename='dist/main.bundle.js') }}" type="text/javascript"></script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
