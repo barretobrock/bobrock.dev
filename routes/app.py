@@ -14,7 +14,8 @@ def create_app(*args, **kwargs) -> Flask:
     """Creates a Flask app instance"""
     # Config app
     config_class = kwargs.pop('config_class', BaseConfig)
-    app = Flask(__name__, static_folder='../static', template_folder='../templates')
+    app = Flask(__name__, static_folder=config_class.STATIC_DIR_PATH,
+                template_folder=config_class.TEMPLATE_DIR_PATH)
     app.config.from_object(config_class)
     # Initialize things that supports app
     db.init_app(app)
