@@ -129,13 +129,13 @@ def hello():
     return "<h1 style='color: blue'>Welcome!</h1>"   
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000)
 ```
 Allow access to port 5000
 ```bash
 sudo ufw allow 5000
 ```
-Check that the site shows this. Go to `http://{ip_address}:5000`
+Check that the site shows this. Run `test.py` and then go to `http://{ip_address}:5000`
 
 Create the WSGI entry point
 ```bash
