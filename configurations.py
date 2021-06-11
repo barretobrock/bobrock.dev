@@ -18,8 +18,8 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.path.join(base_dir, "database.db")}'
     SECRET_KEY = os.environ.get('BOBDEV_SECRET_KEY')
     REGISTER_KEY = os.environ.get('REGISTRATION_KEY')
-    STATIC_DIR_PATH = './static'
-    TEMPLATE_DIR_PATH = './templates'
+    STATIC_DIR_PATH = '../static'
+    TEMPLATE_DIR_PATH = '../templates'
 
 
 class BaseConfig(Config):
