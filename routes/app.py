@@ -1,4 +1,4 @@
-from flask import Flask, request, g
+from flask import Flask
 # Internal packages
 from configurations import BaseConfig
 from flask_base import db, bcrypt, log_mgr
@@ -10,9 +10,10 @@ from .posts import posts
 from .user import users
 
 
-def create_app(config_class=BaseConfig) -> Flask:
+def create_app(*args, **kwargs) -> Flask:
     """Creates a Flask app instance"""
     # Config app
+    config_class = kwargs.pop('config_class', BaseConfig)
     app = Flask(__name__, static_folder='../static', template_folder='../templates')
     app.config.from_object(config_class)
     # Initialize things that supports app

@@ -4,5 +4,5 @@ from routes import create_app
 
 
 if __name__ == "__main__":
-    app = create_app(config_class=ProductionConfig)
-    app.run()
+    application = create_app(config_class=ProductionConfig)
+    application.run()
